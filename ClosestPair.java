@@ -2,6 +2,7 @@ import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Random;
 
 public class ClosestPair {
 
@@ -102,10 +103,10 @@ public class ClosestPair {
 					withinStrip.add(point);
 				}
 			}
-			
-			for(int i = 0; i < withinStrip.size(); i++)  {
+
+			for(int i = 0; i < withinStrip.size()-1; i++)  {
 				Point A = withinStrip.get(i);
-				for(int j = i + 1; j < Math.min(withinStrip.size()-1, i+7); j++) {
+				for(int j = i + 1; j <= Math.min(withinStrip.size()-1, i+7); j++) {
 					Point B = withinStrip.get(j);
 					double curDistance = A.distance(B);
 					if (curDistance < delta) {
@@ -114,7 +115,7 @@ public class ClosestPair {
 					}
 				}
 			}
-			
+
 
 			return closestPair;
 		}
@@ -123,17 +124,29 @@ public class ClosestPair {
 		//return null;
 	}
 
+	public static List<Point> randomPointListGenerator(int n) {
+		List<Point> ret = new ArrayList<Point>();
+		Random rand = new Random();
+		for(int i = 0; i < n; i++)  {
+			int k = rand.nextInt(200) + 100;
+			int j = rand.nextInt(200) + 100;
+			Point X = new Point(k,j);
+			ret.add(X);
+		}
+		return ret;
+	}
+
 
 
 
 	public static void main(String[] args) {
-		Point a = new Point(1,2);
-		Point b = new Point(2,2);
-		Point c = new Point(3,4);
-		Point d = new Point(4,5);
-		Point e = new Point(6,7);
-		Point f = new Point(5,6);
-		Point g = new Point(7,8);
+		Point a = new Point(14,2);
+		Point b = new Point(2,55);
+		Point c = new Point(3,224);
+		Point d = new Point(54,3);
+		Point e = new Point(64,7);
+		Point f = new Point(5,16);
+		Point g = new Point(27,8);
 
 		ArrayList<Point> n = new ArrayList<Point>();
 		n.add(a);
@@ -146,6 +159,14 @@ public class ClosestPair {
 		System.out.println(n.toString());
 
 		System.out.println(findClosestPair(n).toString());
+
+		System.out.println(bruteForce(n).toString());
+		
+		List<Point> o = randomPointListGenerator(100);
+
+		System.out.println(findClosestPair(o).toString());
+
+		System.out.println(bruteForce(o).toString());
 
 
 	}
